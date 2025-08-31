@@ -1,31 +1,39 @@
 <%- include('../partials/header.ejs', {page_title: "info"}) %>
 
-<body>
-    <nav>
-      <h1>Comment prendre le test ?</h1>
-    </nav>
-    
-    <main class="center" style="padding-top: var(--big-size);padding-bottom: var(--big-size);">
-        <ul class="three-quarter-width">
-            <li>En consultant la carte qui te sera fournie, associe la lettre sur la carte au pays correspondant dans le tableau prévu à cet effet.</li>
-            <li>Sur les 24 pays tu devras en <strong>identifier 15</strong></li>
-            <li>Sur les 14 capitales tu devras en <strong>identifier 10</strong></li>
-        </ul>
-    </main>
-  
-    <footer class="center">
-        <form id="validationForm" class="center no-mask" method="get" action="/app/countries" style="width: 70%;">
-            <div id="hiddenParamsContainer"></div>
-            <label class="checkbox self-left">
-                <input type="checkbox" name="validation" required>
-                J'ai compris les informations
-             </label>
-            <input class="full-width" type="submit" value="Prendre le test">
-        </form>
-    </footer>
-  </body>
-  
-  </html>
+
+<body class="bg-primary bg-gradient min-vh-100 d-flex flex-column justify-content-between">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+    <div class="container">
+      <span class="navbar-brand mb-0 h1 fs-2">Comment prendre le test ?</span>
+    </div>
+  </nav>
+
+  <main class="container d-flex flex-grow-1 align-items-center justify-content-center">
+    <div class="card shadow-lg p-4 w-100" style="max-width: 500px;">
+      <h2 class="card-title text-center mb-4">Instructions</h2>
+      <ul class="list-group list-group-flush mb-4">
+        <li class="list-group-item">En consultant la carte qui te sera fournie, associe la lettre sur la carte au pays correspondant dans le tableau prévu à cet effet.</li>
+        <li class="list-group-item">Sur les 24 pays tu devras en <strong>identifier 15</strong></li>
+        <li class="list-group-item">Sur les 14 capitales tu devras en <strong>identifier 10</strong></li>
+      </ul>
+      <form id="validationForm" method="get" action="/app/countries">
+        <div id="hiddenParamsContainer"></div>
+        <div class="form-check mb-3 text-start">
+          <input class="form-check-input" type="checkbox" name="validation" id="validationCheck" required>
+          <label class="form-check-label" for="validationCheck">
+            J'ai compris les informations
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg w-100">Prendre le test</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="bg-light text-center py-3 mt-4 shadow-sm">
+    <a href="https://emm.qc.ca" class="text-decoration-none text-secondary">© École Marcelle-Mallet</a>
+  </footer>
+</body>
+</html>
 
   <script>
      document.addEventListener('DOMContentLoaded', function() {

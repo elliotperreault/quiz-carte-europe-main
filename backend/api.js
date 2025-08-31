@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import { PrismaClient } from "@prisma/client";
 import express from "express";
 import bcrypt from "bcrypt";
@@ -33,19 +35,23 @@ async function authenticateToken(req, res, next) {
 
 // Admin Login
 app.post("/admin/login", async (req, res) => {
-  console.log(req.body);
+  console.log('Login POST req.body:', req.body);
   const { username, password } = req.body;
-
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password are required.' });
+  }
   try {
-    const admin = await prisma.admin.findUnique({ where: { username } });
+    const admin = await prisma.admin.findUnique({ where: { username: username } });
     if (!admin) return res.status(401).send("Incorrect credentials.");
 
+    // If you use hashed passwords, replace the next line with bcrypt.compare
     const validPassword = password === admin.password ? true : false;
     if (!validPassword) return res.status(401).send("Incorrect credentials.");
 
     const accessToken = jwt.sign({ username: admin.username, id: admin.id }, JWT_SECRET);
     res.json(accessToken);
-  } catch {
+  } catch (err) {
+    console.error('Error in /admin/login:', err);
     res.sendStatus(500);
   }
 });

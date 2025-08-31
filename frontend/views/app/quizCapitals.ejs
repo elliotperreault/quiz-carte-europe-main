@@ -1,88 +1,100 @@
 <%- include('../partials/header.ejs', {page_title: "app"}) %>
 
-<body>
-    <nav>
-      <h1>Les capitales d'Europe</h1>
-    </nav>
-    
-    <main class="center">
-        <table id="capitalsTable">
-            <thead>
-                <tr>
-                    <th>Pays d'Europe</th>
-                    <th>Lettre</th>
-                    <th>Pays d'Europe</th>
-                    <th>Lettre</th>
-                </tr>
-            </thead>
-            <tbody class="editable">
-                <tr>
-                    <td>Varsovie</td>
-                    <td contenteditable="true"></td>
-                    <td>Rome</td>
-                    <td contenteditable="true"></td>
-                </tr>
-                <tr>
-                    <td>Prague</td>
-                    <td contenteditable="true"></td>
-                    <td>Madrid</td>
-                    <td contenteditable="true"></td>
-                </tr>
-                <tr>
-                    <td>Belgrade</td>
-                    <td contenteditable="true"></td>
-                    <td>Minsk</td>
-                    <td contenteditable="true"></td>
-                </tr>
-                 <tr>
-                    <td>Berne</td>
-                    <td contenteditable="true"></td>
-                    <td>Sarajevo</td>
-                    <td contenteditable="true"></td>
-                </tr>
-                <tr>
-                    <td>Bruxelles</td>
-                    <td contenteditable="true"></td>
-                    <td>Paris</td>
-                    <td contenteditable="true"></td>
-                </tr>
-                <tr>
-                    <td>Vienne</td>
-                    <td contenteditable="true"></td>
-                    <td>Oslo</td>
-                    <td contenteditable="true"></td>
-                </tr>
-                <tr>
-                    <td>Helsinki</td>
-                    <td contenteditable="true"></td>
-                    <td>Londres</td>
-                    <td contenteditable="true"></td>
-                </tr>
 
-            </tbody>
-        </table>
+<body class="bg-primary bg-gradient min-vh-100 d-flex flex-column justify-content-between">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1 fs-2">Les capitales d'Europe</span>
+        </div>
+    </nav>
+
+    <main class="container d-flex flex-grow-1 align-items-center justify-content-center">
+        <div class="card shadow-lg p-4 w-100" style="max-width: 900px;">
+            <h2 class="card-title text-center mb-4">Associe chaque capitale à sa lettre</h2>
+            <div class="table-responsive">
+                <table id="capitalsTable" class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Capitale</th>
+                            <th>Lettre</th>
+                            <th>Capitale</th>
+                            <th>Lettre</th>
+                        </tr>
+                    </thead>
+                    <tbody class="editable">
+                        <tr>
+                            <td>Varsovie</td>
+                            <td contenteditable="true"></td>
+                            <td>Rome</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Prague</td>
+                            <td contenteditable="true"></td>
+                            <td>Madrid</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Belgrade</td>
+                            <td contenteditable="true"></td>
+                            <td>Minsk</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Berne</td>
+                            <td contenteditable="true"></td>
+                            <td>Sarajevo</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Bruxelles</td>
+                            <td contenteditable="true"></td>
+                            <td>Paris</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Vienne</td>
+                            <td contenteditable="true"></td>
+                            <td>Oslo</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Helsinki</td>
+                            <td contenteditable="true"></td>
+                            <td>Londres</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-between mt-4">
+                <button id="viewMapButton" type="button" class="btn btn-outline-primary btn-lg me-2">Voir carte</button>
+                <button id="submitButton" type="button" class="btn btn-success btn-lg">Soumettre</button>
+            </div>
+        </div>
     </main>
 
-    <div class="big-spacer"></div>
-    
-    <div class="fixed bottom spacing full-width center" style="display: flex;">
-        <input id="viewMapButton" type="submit" value="Voir carte">
-        <input  id="submitButton" type="submit" value="Soumettre">
-    </div>
-
-    <div id="mapModal" class="modal">
-        <span class="modal-close-button">×</span>
-        <img class="modal-content" src="/images/europeCapitalsMap.png" alt="Carte d'Europe">
-    </div>
-  </body>
-  
-  </html>
+        <div id="mapModal" class="modal" tabindex="-1" style="display:none;align-items:center;justify-content:center;">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 95vw;">
+                <div class="modal-content bg-white p-0 border-0 shadow-lg rounded-4">
+                    <div class="modal-header border-0 pb-0">
+                        <h5 class="modal-title">Carte des capitales d'Europe</h5>
+                        <button type="button" class="btn-close" aria-label="Fermer" style="font-size:2rem;" id="closeMapModal"></button>
+                    </div>
+                    <div class="modal-body d-flex justify-content-center align-items-center p-0">
+                        <img src="/images/europeCapitalsMap.png" alt="Carte d'Europe" class="img-fluid rounded-3" style="max-height:80vh;max-width:100%;object-fit:contain;">
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
 
   <script>
 
     // --- Get Modal Elements ---
     const mapModal = document.getElementById("mapModal");
-    const closeModalButton = mapModal.querySelector(".modal-close-button");
+    const closeModalButton = document.getElementById("closeMapModal");
 
     document.addEventListener("input", (e) => {
         if (e.target.matches(`td[contenteditable="true"]`)) {

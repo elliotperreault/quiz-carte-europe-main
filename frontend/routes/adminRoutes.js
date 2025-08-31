@@ -27,7 +27,6 @@ router.get("/admin/users", (req, res) => {
 });
 
 router.delete("/admin/users", (req, res) => {
-  console.log("hello");
   axios
     .delete("http://localhost:8756/users", {
       headers: {
@@ -47,14 +46,13 @@ router.get("/admin/login", (req, res) => {
   res.render("admin/login.ejs");
 });
 router.post("/admin/login", async (req, res) => {
-  const { name, password } = req.body;
+  const { username, password } = req.body;
 
   try {
-    console.log(0);
     const axiosResponse = await axios.post(
       `${API_BASE_URL}/admin/login`,
       {
-        username: name,
+        username: username,
         password: password,
       },
       {

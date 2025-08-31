@@ -1,123 +1,130 @@
 <%- include('../partials/header.ejs', {page_title: "app"}) %>
 
-<body>
-    <nav>
-      <h1>Les pays d'Europe</h1>
+
+<body class="bg-primary bg-gradient min-vh-100 d-flex flex-column justify-content-between">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1 fs-2">Les pays d'Europe</span>
+        </div>
     </nav>
-    
-    <main class="center">
-        <table id="countriesTable">
-            <thead>
-                <tr>
-                    <th>Pays d'Europe</th>
-                    <th>Lettre</th>
-                    <th>Pays d'Europe</th>
-                    <th>Lettre</th>
-                </tr>
-            </thead>
-            <tbody class="editable">
-                <tr>
-                    <td>Portugal</td>
-                    <td contenteditable="true"></td>
-                    <td>Islande</td>
-                    <td contenteditable="true"></td>
-                </tr>
-                <tr>
-                    <td>Belgique</td>
-                    <td contenteditable="true"></td>
-                    <td>Allemagne</td>
-                    <td contenteditable="true"></td>
-                </tr>
-                <tr>
-                    <td>Bulgarie</td>
-                    <td contenteditable="true"></td>
-                    <td>Royaume-Uni</td>
-                    <td contenteditable="true"></td>
-                </tr>
-                 <tr>
-                    <td>Suède</td>
-                    <td contenteditable="true"></td>
-                    <td>Lituanie</td>
-                    <td contenteditable="true"></td>
-                </tr>
-                <tr>
-                    <td>Espagne</td>
-                    <td contenteditable="true"></td>
-                    <td>Grèce</td>
-                    <td contenteditable="true"></td>
-                </tr>
-                <tr>
-                    <td>Italie</td>
-                    <td contenteditable="true"></td>
-                    <td>Finlande</td>
-                    <td contenteditable="true"></td>
-                </tr>
-                <tr>
-                    <td>Ukraine</td>
-                    <td contenteditable="true"></td>
-                    <td>Russie</td>
-                    <td contenteditable="true"></td>
-                </tr>
 
-                <tr>
-                    <td>Pays-Bas</td>
-                    <td contenteditable="true"></td>
-                    <td>République tchèque</td>
-                    <td contenteditable="true"></td>
-                </tr>
-
-                <tr>
-                    <td>Serbie</td>
-                    <td contenteditable="true"></td>
-                    <td>Roumanie</td>
-                    <td contenteditable="true"></td>
-                </tr>
-               
-                <tr>
-                    <td>Danemark</td>
-                    <td contenteditable="true"></td>
-                    <td>Autriche</td>
-                    <td contenteditable="true"></td>
-                </tr>
-
-                <tr>
-                    <td>France</td>
-                    <td contenteditable="true"></td>
-                    <td>Croatie</td>
-                    <td contenteditable="true"></td>
-                </tr>
-
-                <tr>
-                    <td>Pologne</td>
-                    <td contenteditable="true"></td>
-                    <td>Hongrie</td>
-                    <td contenteditable="true"></td>
-                </tr>
-
-            </tbody>
-        </table>
+    <main class="container d-flex flex-grow-1 align-items-center justify-content-center">
+        <div class="card shadow-lg p-4 w-100" style="max-width: 900px;">
+            <h2 class="card-title text-center mb-4">Associe chaque pays à sa lettre</h2>
+            <div class="table-responsive">
+                <table id="countriesTable" class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Pays d'Europe</th>
+                            <th>Lettre</th>
+                            <th>Pays d'Europe</th>
+                            <th>Lettre</th>
+                        </tr>
+                    </thead>
+                    <tbody class="editable">
+                        <tr>
+                            <td>Portugal</td>
+                            <td contenteditable="true"></td>
+                            <td>Islande</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Belgique</td>
+                            <td contenteditable="true"></td>
+                            <td>Allemagne</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Bulgarie</td>
+                            <td contenteditable="true"></td>
+                            <td>Royaume-Uni</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Suède</td>
+                            <td contenteditable="true"></td>
+                            <td>Lituanie</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Espagne</td>
+                            <td contenteditable="true"></td>
+                            <td>Grèce</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Italie</td>
+                            <td contenteditable="true"></td>
+                            <td>Finlande</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Ukraine</td>
+                            <td contenteditable="true"></td>
+                            <td>Russie</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Pays-Bas</td>
+                            <td contenteditable="true"></td>
+                            <td>République tchèque</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Serbie</td>
+                            <td contenteditable="true"></td>
+                            <td>Roumanie</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Danemark</td>
+                            <td contenteditable="true"></td>
+                            <td>Autriche</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>France</td>
+                            <td contenteditable="true"></td>
+                            <td>Croatie</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                        <tr>
+                            <td>Pologne</td>
+                            <td contenteditable="true"></td>
+                            <td>Hongrie</td>
+                            <td contenteditable="true"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-between mt-4">
+                <button id="viewMapButton" type="button" class="btn btn-outline-primary btn-lg me-2">Voir carte</button>
+                <button id="submitButton" type="button" class="btn btn-success btn-lg">Soumettre</button>
+            </div>
+        </div>
     </main>
 
-    <div class="big-spacer"></div>
-    
-    <div class="fixed bottom spacing full-width center" style="display: flex;">
-        <input id="viewMapButton" type="submit" value="Voir carte">
-        <input  id="submitButton" type="submit" value="Soumettre">
-    </div>
-
-    <div id="mapModal" class="modal">
-        <span class="modal-close-button">×</span>
-        <img class="modal-content" src="/images/europeCountriesMap.png" alt="Carte d'Europe">
-    </div>
-  </body>
-  
-  </html>
+        <div id="mapModal" class="modal" tabindex="-1" style="display:none;align-items:center;justify-content:center;">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 95vw;">
+                <div class="modal-content bg-white p-0 border-0 shadow-lg rounded-4">
+                    <div class="modal-header border-0 pb-0">
+                        <h5 class="modal-title">Carte des pays d'Europe</h5>
+                        <button type="button" class="btn-close" aria-label="Fermer" style="font-size:2rem;" id="closeMapModal"></button>
+                    </div>
+                    <div class="modal-body d-flex justify-content-center align-items-center p-0">
+                        <img src="/images/europeCountriesMap.png" alt="Carte d'Europe" class="img-fluid rounded-3" style="max-height:80vh;max-width:100%;object-fit:contain;">
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
 
   <script>
 
     // --- Get Modal Elements ---
     const mapModal = document.getElementById("mapModal");
-    const closeModalButton = mapModal.querySelector(".modal-close-button");
+    const closeModalButton = document.getElementById("closeMapModal");
 
     document.addEventListener("input", (e) => {
         if (e.target.matches(`td[contenteditable="true"]`)) {

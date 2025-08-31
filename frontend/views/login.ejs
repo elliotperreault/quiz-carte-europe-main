@@ -1,21 +1,27 @@
 <%- include('partials/header.ejs', {page_title: "login"}) %>
 
-<body>
-  <nav>
-    <h1>La carte d'Europe</h1>
+<body class="bg-primary bg-gradient min-vh-100 d-flex flex-column justify-content-between">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+    <div class="container">
+      <span class="navbar-brand mb-0 h1 fs-2">La carte d'Europe</span>
+    </div>
   </nav>
 
-  <form id="loginForm" class="center" action="/app/info">
-    <div class="center full-width">
-      <input type="text" name="name" id="nameInput" placeholder="Ton nom">
-      <input type="number" name="group" id="groupInput" placeholder="Ton groupe">
+  <main class="container d-flex flex-grow-1 align-items-center justify-content-center">
+    <div class="card shadow-lg p-4 w-100" style="max-width: 400px;">
+      <h2 class="card-title text-center mb-4">Connexion</h2>
+      <form id="loginForm" action="/app/info">
+        <div class="mb-3">
+          <input type="text" name="name" id="nameInput" class="form-control form-control-lg mb-3" placeholder="Ton nom" required>
+          <input type="number" name="group" id="groupInput" class="form-control form-control-lg" placeholder="Ton groupe" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg w-100">Prendre le test</button>
+      </form>
     </div>
-    <input type="submit" value="Prendre le test">
-  </form>
+  </main>
 
-  <footer>
-    <a href="https://emm.qc.ca">© École Marcelle-Mallet</a>
+  <footer class="bg-light text-center py-3 mt-4 shadow-sm">
+    <a href="https://emm.qc.ca" class="text-decoration-none text-secondary">© École Marcelle-Mallet</a>
   </footer>
 </body>
-
 </html>

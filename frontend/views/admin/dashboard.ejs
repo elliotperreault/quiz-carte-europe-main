@@ -1,26 +1,28 @@
 <%- include('../partials/header.ejs', {page_title: "admin"}) %>
 
-<body>
-  <nav>
-    <h1>Console d'administration</h1>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow mb-4 rounded-bottom">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1 fs-2 fw-bold">Console d'administration</span>
+    </div>
   </nav>
 
   <!-- Main content area for the dashboard -->
-  <main class="admin-dashboard" style="padding: var(--enormous-size) 0;">
-
+  <main class="container flex-fill">
     <!-- Grid container for user score cards - Will be populated by JS -->
-    <div class="user-grid">
+    <div class="row g-4" id="userGrid">
       <!-- User cards will be added here dynamically -->
-    </div><!-- End user-grid -->
-
-    <!-- Container for Global Action Buttons -->
-    <div class="global-actions">
-      <button id="clearResultsBtn" class="action-button btn-danger">Effacer Tous les Résultats</button>
     </div>
-
+    <!-- Container for Global Action Buttons -->
+    <div class="mt-4 d-flex justify-content-end">
+      <button id="clearResultsBtn" class="btn btn-danger shadow">Effacer Tous les Résultats</button>
+    </div>
   </main>
 
-  <div class="big-spacer"></div> <!-- Add some space before footer -->
+  <footer class="text-center mt-auto py-3 bg-white border-top">
+    <a href="https://emm.qc.ca" class="text-decoration-none text-secondary">© École Marcelle-Mallet</a>
+  </footer>
 
   <!-- Add the script tag at the end of the body -->
   <script>
@@ -32,41 +34,39 @@
       function createUserCard(userData) {
         const {
           username = 'N/A',
-            score_countries = 0,
-            totalCountries = 15,
-            score_capitals = 0,
-            totalCapitals = 10
+          score_countries = 0,
+          totalCountries = 15,
+          score_capitals = 0,
+          totalCapitals = 10
         } = userData;
 
-        const card = document.createElement('div');
-        card.classList.add('user-card');
+        // Bootstrap card only
+        const col = document.createElement('div');
+        col.className = 'col-12 col-sm-6 col-md-4 col-lg-3';
 
-        // Create and add user username
-        const nameHeading = document.createElement('h3');
-        nameHeading.classList.add('user-name');
+        const card = document.createElement('div');
+        card.className = 'card shadow h-100 p-2';
+
+        // User name
+        const nameHeading = document.createElement('h5');
+        nameHeading.className = 'card-title text-primary mb-2';
         nameHeading.textContent = username;
         card.appendChild(nameHeading);
 
-        // Create and add country score line
+        // Country score
         const score_countriesLine = document.createElement('p');
-        score_countriesLine.classList.add('score-line');
-        score_countriesLine.innerHTML = `Pays: <span class="score-value">${score_countries} / ${totalCountries}</span>`; // Use innerHTML to include the span easily
+        score_countriesLine.className = 'card-text mb-1';
+        score_countriesLine.innerHTML = `Pays: <span class="fw-bold text-success">${score_countries} / ${totalCountries}</span>`;
         card.appendChild(score_countriesLine);
 
-        // Create and add capital score line
+        // Capital score
         const score_capitalsLine = document.createElement('p');
-        score_capitalsLine.classList.add('score-line');
-        score_capitalsLine.innerHTML = `Capitales: <span class="score-value">${score_capitals} / ${totalCapitals}</span>`;
+        score_capitalsLine.className = 'card-text';
+        score_capitalsLine.innerHTML = `Capitales: <span class="fw-bold text-success">${score_capitals} / ${totalCapitals}</span>`;
         card.appendChild(score_capitalsLine);
 
-        // Optional: Add user-specific buttons here later if needed
-        // const deleteButton = document.createElement('button');
-        // deleteButton.textContent = 'Supprimer';
-        // deleteButton.classList.add('btn-delete-user'); // Add appropriate class
-        // deleteButton.onclick = () => { /* Add delete logic here */ };
-        // card.appendChild(deleteButton);
-
-        return card; // Return the complete card element
+        col.appendChild(card);
+        return col;
       }
 
       // --- Function to Add a User Card to the Grid ---
@@ -84,32 +84,29 @@
       // --- Function to Display Multiple Users ---
       // Clears existing grid content and adds all users from an array
       function displayUsers(usersArray) {
+        // Remove all group headers and user cards
+        const userGrid = document.getElementById('userGrid');
+        userGrid.innerHTML = '';
 
-        // Clear existing cards before adding new ones
-        document.querySelectorAll(".user-grid").forEach(grid => grid.remove())
-        let userGroup = []
-        console.log(usersArray)
-        usersArray.forEach(userData => {
-          if (!userGroup.includes(userData.group)) {
-            userGroup.push(userData.group)
-
-            const newDiv = document.createElement('div');
-            newDiv.className = 'user-grid';
-            newDiv.id = "user-grid-" + userData.group;
-            mainContent.insertBefore(newDiv, document.querySelector(".global-actions"));
-
-            const header = document.createElement('H1')
-            header.classList.add("user-grid")
-            header.innerHTML = userData.group
-            mainContent.insertBefore(header, document.querySelector("#user-grid-" + userData.group));
-          }
-
-          const cardElement = createUserCard(userData);
-          document.querySelector("#user-grid-" + userData.group).appendChild(cardElement);
+        // Group users by group property
+        const groups = {};
+        (usersArray || []).forEach(user => {
+          if (!groups[user.group]) groups[user.group] = [];
+          groups[user.group].push(user);
         });
-        userGroup.forEach(group => {
-          console.log(group)
-        })
+
+        Object.entries(groups).forEach(([group, users]) => {
+          // Add group header
+          const header = document.createElement('h3');
+          header.className = 'mb-3 mt-4 text-secondary fw-bold';
+          header.textContent = group;
+          userGrid.appendChild(header);
+
+          // Add user cards for this group
+          users.forEach(userData => {
+            userGrid.appendChild(createUserCard(userData));
+          });
+        });
       }
 
       fetch("/admin/users" + window.location.search, {
