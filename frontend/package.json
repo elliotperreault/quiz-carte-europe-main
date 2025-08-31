@@ -1,0 +1,36 @@
+{
+  "name": "quiz-carte-europe",
+  "version": "1.0.0",
+  "description": "Quiz-carte-Europe sert à évaluer les compétences en géographie d'un individu sur les pays et les capitales d'Europe de manière simple et agréable.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "kill": "echo Checking processes on port 8734... for /f \"tokens=5\" %a in ('netstat -ano ^| findstr :8734') do taskkill /PID %a /F",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Perreault-Labs/quiz-carte-europe.git"
+  },
+  "keywords": [
+    "quiz",
+    "maps",
+    "node"
+  ],
+  "author": "Elliot Perreault",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Perreault-Labs/quiz-carte-europe/issues"
+  },
+  "homepage": "https://github.com/Perreault-Labs/quiz-carte-europe#readme",
+  "dependencies": {
+    "axios": "^1.8.4",
+    "delete": "^1.1.0",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "fastify": "^5.2.1",
+    "nodemon": "^3.1.9",
+    "prisma": "^6.4.1"
+  }
+}

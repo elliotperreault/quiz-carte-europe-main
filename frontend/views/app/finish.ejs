@@ -1,0 +1,45 @@
+<%- include('../partials/header.ejs', {page_title: "finish"}) %>
+
+<body>
+  <nav>
+    <h1>La carte d'Europe</h1>
+  </nav>
+
+  <main class="center">
+    <h1>Félicitation, tu as fini le test !</h1>
+  </main>
+
+  <footer>
+    <a href="https://emm.qc.ca">© École Marcelle-Mallet</a>
+  </footer>
+</body>
+
+</html>
+
+<script>
+  const baseFetchUrl = '/app/finish';
+
+  const currentQueryString = window.location.search;
+
+  const urlWithParams = baseFetchUrl + currentQueryString;
+
+  console.log('Fetching URL:', urlWithParams);
+
+  fetch(urlWithParams, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      document.querySelector("main h1").innerHTML = "Félicitation, tu as fini le test !"
+      window.location.href = "/"
+    })
+    .catch(error => {
+      document.querySelector("main h1").innerHTML = "Oups, une erreur est survenu pendant la validation du test"
+      console.error('Error:', error);
+    });
+</script>

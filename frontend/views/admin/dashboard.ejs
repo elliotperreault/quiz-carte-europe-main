@@ -1,0 +1,153 @@
+<%- include('../partials/header.ejs', {page_title: "admin"}) %>
+
+<body>
+  <nav>
+    <h1>Console d'administration</h1>
+  </nav>
+
+  <!-- Main content area for the dashboard -->
+  <main class="admin-dashboard" style="padding: var(--enormous-size) 0;">
+
+    <!-- Grid container for user score cards - Will be populated by JS -->
+    <div class="user-grid">
+      <!-- User cards will be added here dynamically -->
+    </div><!-- End user-grid -->
+
+    <!-- Container for Global Action Buttons -->
+    <div class="global-actions">
+      <button id="clearResultsBtn" class="action-button btn-danger">Effacer Tous les Résultats</button>
+    </div>
+
+  </main>
+
+  <div class="big-spacer"></div> <!-- Add some space before footer -->
+
+  <!-- Add the script tag at the end of the body -->
+  <script>
+    const mainContent = document.querySelector(".admin-dashboard")
+
+    // Wait for the DOM to be fully loaded before running scripts
+    document.addEventListener('DOMContentLoaded', async () => {
+
+      function createUserCard(userData) {
+        const {
+          username = 'N/A',
+            score_countries = 0,
+            totalCountries = 15,
+            score_capitals = 0,
+            totalCapitals = 10
+        } = userData;
+
+        const card = document.createElement('div');
+        card.classList.add('user-card');
+
+        // Create and add user username
+        const nameHeading = document.createElement('h3');
+        nameHeading.classList.add('user-name');
+        nameHeading.textContent = username;
+        card.appendChild(nameHeading);
+
+        // Create and add country score line
+        const score_countriesLine = document.createElement('p');
+        score_countriesLine.classList.add('score-line');
+        score_countriesLine.innerHTML = `Pays: <span class="score-value">${score_countries} / ${totalCountries}</span>`; // Use innerHTML to include the span easily
+        card.appendChild(score_countriesLine);
+
+        // Create and add capital score line
+        const score_capitalsLine = document.createElement('p');
+        score_capitalsLine.classList.add('score-line');
+        score_capitalsLine.innerHTML = `Capitales: <span class="score-value">${score_capitals} / ${totalCapitals}</span>`;
+        card.appendChild(score_capitalsLine);
+
+        // Optional: Add user-specific buttons here later if needed
+        // const deleteButton = document.createElement('button');
+        // deleteButton.textContent = 'Supprimer';
+        // deleteButton.classList.add('btn-delete-user'); // Add appropriate class
+        // deleteButton.onclick = () => { /* Add delete logic here */ };
+        // card.appendChild(deleteButton);
+
+        return card; // Return the complete card element
+      }
+
+      // --- Function to Add a User Card to the Grid ---
+      function addUserToGrid(userData, containerSelector) {
+        const userGrid = document.querySelector(containerSelector);
+
+        if (!userGrid) {
+          console.error("User grid container not found!");
+          return;
+        }
+        const cardElement = createUserCard(userData);
+        userGrid.appendChild(cardElement);
+      }
+
+      // --- Function to Display Multiple Users ---
+      // Clears existing grid content and adds all users from an array
+      function displayUsers(usersArray) {
+
+        // Clear existing cards before adding new ones
+        document.querySelectorAll(".user-grid").forEach(grid => grid.remove())
+        let userGroup = []
+        console.log(usersArray)
+        usersArray.forEach(userData => {
+          if (!userGroup.includes(userData.group)) {
+            userGroup.push(userData.group)
+
+            const newDiv = document.createElement('div');
+            newDiv.className = 'user-grid';
+            newDiv.id = "user-grid-" + userData.group;
+            mainContent.insertBefore(newDiv, document.querySelector(".global-actions"));
+
+            const header = document.createElement('H1')
+            header.classList.add("user-grid")
+            header.innerHTML = userData.group
+            mainContent.insertBefore(header, document.querySelector("#user-grid-" + userData.group));
+          }
+
+          const cardElement = createUserCard(userData);
+          document.querySelector("#user-grid-" + userData.group).appendChild(cardElement);
+        });
+        userGroup.forEach(group => {
+          console.log(group)
+        })
+      }
+
+      fetch("/admin/users" + window.location.search, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(async (response) => displayUsers(await response.json()))
+        .catch(error => window.location.href = "/admin/login");
+
+
+
+      // --- Add Event Listeners for Global Buttons (Example) ---
+      const clearBtn = document.getElementById('clearResultsBtn');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          if (confirm("Êtes-vous sûr de vouloir effacer TOUS les résultats ? Cette action est irréversible.")) {
+            console.log('Action: Effacer Tous les Résultats');
+            alert('Action: Effacer tous les résultats (logique serveur requise)');
+
+            fetch("/admin/users" + window.location.search, {
+                method: 'delete',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              })
+              .catch(error => console.error('Error:', error));
+
+            displayUsers({})
+          }
+        });
+      }
+
+
+    }); // End DOMContentLoaded
+  </script>
+
+</body>
+
+</html>

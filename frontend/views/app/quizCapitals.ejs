@@ -1,0 +1,193 @@
+<%- include('../partials/header.ejs', {page_title: "app"}) %>
+
+<body>
+    <nav>
+      <h1>Les capitales d'Europe</h1>
+    </nav>
+    
+    <main class="center">
+        <table id="capitalsTable">
+            <thead>
+                <tr>
+                    <th>Pays d'Europe</th>
+                    <th>Lettre</th>
+                    <th>Pays d'Europe</th>
+                    <th>Lettre</th>
+                </tr>
+            </thead>
+            <tbody class="editable">
+                <tr>
+                    <td>Varsovie</td>
+                    <td contenteditable="true"></td>
+                    <td>Rome</td>
+                    <td contenteditable="true"></td>
+                </tr>
+                <tr>
+                    <td>Prague</td>
+                    <td contenteditable="true"></td>
+                    <td>Madrid</td>
+                    <td contenteditable="true"></td>
+                </tr>
+                <tr>
+                    <td>Belgrade</td>
+                    <td contenteditable="true"></td>
+                    <td>Minsk</td>
+                    <td contenteditable="true"></td>
+                </tr>
+                 <tr>
+                    <td>Berne</td>
+                    <td contenteditable="true"></td>
+                    <td>Sarajevo</td>
+                    <td contenteditable="true"></td>
+                </tr>
+                <tr>
+                    <td>Bruxelles</td>
+                    <td contenteditable="true"></td>
+                    <td>Paris</td>
+                    <td contenteditable="true"></td>
+                </tr>
+                <tr>
+                    <td>Vienne</td>
+                    <td contenteditable="true"></td>
+                    <td>Oslo</td>
+                    <td contenteditable="true"></td>
+                </tr>
+                <tr>
+                    <td>Helsinki</td>
+                    <td contenteditable="true"></td>
+                    <td>Londres</td>
+                    <td contenteditable="true"></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </main>
+
+    <div class="big-spacer"></div>
+    
+    <div class="fixed bottom spacing full-width center" style="display: flex;">
+        <input id="viewMapButton" type="submit" value="Voir carte">
+        <input  id="submitButton" type="submit" value="Soumettre">
+    </div>
+
+    <div id="mapModal" class="modal">
+        <span class="modal-close-button">×</span>
+        <img class="modal-content" src="/images/europeCapitalsMap.png" alt="Carte d'Europe">
+    </div>
+  </body>
+  
+  </html>
+
+  <script>
+
+    // --- Get Modal Elements ---
+    const mapModal = document.getElementById("mapModal");
+    const closeModalButton = mapModal.querySelector(".modal-close-button");
+
+    document.addEventListener("input", (e) => {
+        if (e.target.matches(`td[contenteditable="true"]`)) {
+
+            if (e.target.innerHTML.length == 4) { 
+                return e.target.classList.remove("full")
+            }
+            if (!e.target.classList.contains("full")) {
+                if (document.querySelectorAll("td.full").length >= 10) {
+                    e.target.innerHTML = e.target.innerHTML.slice(0,-1) 
+                    alert("Tu ne peux pas identifier plus de 10 pays")
+                    return; // Stop further processing
+                }
+            }
+
+            if (e.target.innerHTML.length > 2) {
+                 e.target.innerHTML = e.target.innerHTML.slice(0,1); 
+            }
+
+          
+             if (e.target.innerHTML.length === 1 || e.target.innerHTML.length === 2) {
+                 e.target.classList.add("full");
+             } else {
+                 e.target.classList.remove("full"); 
+             }
+        }
+    })
+
+    document.addEventListener("click", (e) => {
+        if (e.target.matches("#viewMapButton")) {
+            console.log("Viewing map");
+            // --- Show the modal ---
+            mapModal.style.display = "flex"; 
+
+        } else if (e.target.matches("#submitButton")) {
+            if (document.querySelectorAll("td.full").length < 10) {
+                return alert("Il te reste " + (10 - document.querySelectorAll("td.full").length) + " pays à identifier")
+            }
+            let params = new URLSearchParams(window.location.search)
+            params.append("capitals", JSON.stringify(extractTableDataToJson("capitalsTable")))
+
+            window.location.href = "/app/finish/" + '?' + params.toString();
+        }
+    })
+
+    
+    function closeModal() {
+        mapModal.style.display = "none";
+    }
+
+   
+    closeModalButton.addEventListener("click", closeModal);
+
+    
+    mapModal.addEventListener("click", (e) => {
+        if (e.target === mapModal) { 
+            closeModal();
+        }
+    });
+
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape" && mapModal.style.display === "flex") {
+            closeModal();
+        }
+    });
+
+
+    function extractTableDataToJson(tableId) {
+        const table = document.getElementById(tableId);
+        if (!table) {
+            console.error(`Table with ID "${tableId}" not found.`);
+            return null;
+        }
+
+        const data = {};
+        const rows = table.querySelectorAll('tbody tr');
+
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+
+
+            if (cells.length >= 4) {
+
+                const country1 = cells[0].textContent.trim();
+                // Get value, ensure it's max 1 character, default to empty string if nothing entered
+                const value1 = cells[1].textContent.trim().slice(0, 2);
+
+                const country2 = cells[2].textContent.trim();
+                // Get value, ensure it's max 1 character, default to empty string if nothing entered
+                const value2 = cells[3].textContent.trim().slice(0, 2);
+
+                if (country1) {
+                    // Only add if value1 is not empty
+                    if (value1) data[country1.toLowerCase()] = value1;
+                }
+                if (country2) {
+                     // Only add if value2 is not empty
+                    if (value2) data[country2.toLowerCase()] = value2;
+                }
+            } else {
+                console.warn("Skipping row with unexpected cell count:", row);
+            }
+        });
+
+        return data;
+    }
+  </script>

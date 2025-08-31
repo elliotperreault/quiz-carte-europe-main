@@ -1,0 +1,21 @@
+<%- include('../partials/header.ejs', {page_title: "admin login"}) %>
+
+<body>
+    <nav>
+      <h1>Connexion admin</h1>
+    </nav>
+  
+    <form id="loginForm" class="center" method="post" action="/admin/login">
+      <div class="center full-width">
+        <input type="text" name="name" id="nameInput" placeholder="Ton nom d'utilisateur">
+        <input type="password" name="password" id="passwordInput" placeholder="Ton mot de passe">
+      </div>
+      <input type="submit" value="Se connecter">
+    </form>
+  
+    <footer>
+      <a href="https://emm.qc.ca">© École Marcelle-Mallet</a>
+    </footer>
+  </body>
+  
+  </html>

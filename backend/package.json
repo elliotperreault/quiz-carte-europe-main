@@ -1,0 +1,21 @@
+{
+  "devDependencies": {
+    "@types/node": "^22.13.14",
+    "nodemon": "^3.1.9",
+    "prisma": "^6.5.0",
+    "ts-node": "^10.9.2"
+  },
+  "scripts": {
+    "kill": "echo Checking processes on port 8756... for /f \"tokens=5\" %a in ('netstat -ano ^| findstr :8756') do taskkill /PID %a /F",
+    "start": "nodemon api.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "^6.5.0",
+    "axios": "^1.8.4",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

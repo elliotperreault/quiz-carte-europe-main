@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id       String @unique @default(uuid())
+  username String @unique
+  password String
+}
+
+model Map {
+  id String @unique @default(uuid())
+
+  association Json
+}
+
+model User {
+  id String @unique @default(uuid())
+
+  score_countries Int?
+  score_capitals  Int?
+
+  username String
+  group    Int
+
+  created_at DateTime @default(now())
+  last_update DateTime @updatedAt
+}

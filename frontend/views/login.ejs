@@ -1,0 +1,21 @@
+<%- include('partials/header.ejs', {page_title: "login"}) %>
+
+<body>
+  <nav>
+    <h1>La carte d'Europe</h1>
+  </nav>
+
+  <form id="loginForm" class="center" action="/app/info">
+    <div class="center full-width">
+      <input type="text" name="name" id="nameInput" placeholder="Ton nom">
+      <input type="number" name="group" id="groupInput" placeholder="Ton groupe">
+    </div>
+    <input type="submit" value="Prendre le test">
+  </form>
+
+  <footer>
+    <a href="https://emm.qc.ca">© École Marcelle-Mallet</a>
+  </footer>
+</body>
+
+</html>

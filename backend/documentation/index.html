@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API Documentation</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 8px;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    code {
+      background-color: #f8f8f8;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .endpoint {
+        margin-bottom: 20px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>API Documentation</h1>
+
+  <h2>Authentication</h2>
+  <p>This API uses JWT (JSON Web Tokens) for authentication. You need to obtain an access token by logging in as an admin to access protected routes.  The token should be included in the `Authorization` header for subsequent requests as a bearer token:  `Authorization: Bearer YOUR_TOKEN`</p>
+
+
+  <div class="endpoint">
+  <h2>Admin Login</h2>
+  <p>Endpoint: <code>POST /admin/login</code></p>
+  <p>Authenticates an admin user.</p>
+
+  <h3>Request Body</h3>
+  <table>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td><code>username</code></td>
+      <td>String</td>
+      <td>Admin's username.</td>
+    </tr>
+    <tr>
+      <td><code>password</code></td>
+      <td>String</td>
+      <td>Admin's password.</td>
+    </tr>
+  </table>
+
+  <h3>Response</h3>
+    <p>Status Codes: 200 (Success), 401 (Unauthorized)</p>
+    <pre><code>
+      {
+        "accessToken": "YOUR_JWT_TOKEN" 
+      }
+    </code></pre>
+    </div>
+
+
+  <h2>Users</h2>
+
+
+      <div class="endpoint">
+  <h3>Get All Users (Protected)</h3>
+  <p>Endpoint: <code>GET /users</code></p>
+  <p>Retrieves a list of all users. Requires admin authentication.</p>
+        <h3>Response</h3>
+        <p>Status Code: 200 (OK)</p>
+  </div>
+
+    <div class="endpoint">
+  <h3>Get User by ID (Protected)</h3>
+  <p>Endpoint: <code>GET /users/:id</code></p>
+  <p>Retrieves a specific user by their ID. Requires admin authentication.</p>
+        <h3>Response</h3>
+  <p>Status Codes: 200 (OK), 404 (Not Found)</p>
+    </div>
+
+    <div class="endpoint">
+  <h3>Create a New User</h3>
+  <p>Endpoint: <code>POST /users</code></p>
+  <p>Creates a new user.</p>
+
+  <h3>Request Body</h3>
+  <p> The request body should contain the necessary data to create a new user according to the User model in your Prisma schema. Example assuming your schema requires a `username` field:</p>
+    <pre><code>
+      {
+        "username": "newuser123" 
+      }
+    </code></pre>
+
+
+  <h3>Response</h3>
+  <p>Status Codes:  201 (Created), 500 (Internal Server Error)</p>
+    </div>
+
+    <div class="endpoint">
+  <h3>Update User Score</h3>
+  <p>Endpoint: <code>PUT /users/:id/score</code></p>
+  <p>Updates a user's score for countries and capitals.</p>
+
+
+  <h3>Request Body</h3>
+  <table>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td><code>score_countries</code></td>
+      <td>Number</td>
+      <td>User's score for countries.</td>
+    </tr>
+    <tr>
+      <td><code>score_capitals</code></td>
+      <td>Number</td>
+      <td>User's score for capitals.</td>
+    </tr>
+  </table>
+
+  <h3>Response</h3>
+  <p>Status Codes: 200 (OK), 400 (Bad Request)</p>
+    </div>
+
+
+
+    <h2>Map</h2>
+        <div class="endpoint">
+          <h3>Get Map Data</h3>
+          <p>Endpoint: <code>GET /map/:id</code></p>
+          <p>Retrieves map data by ID.</p>
+          <h3>Response</h3>
+          <p>Status Codes: 200 (OK), 404 (Not Found)</p>
+        </div>
+
+
+</body>
+</html>

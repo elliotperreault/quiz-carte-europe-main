@@ -1,0 +1,51 @@
+<%- include('../partials/header.ejs', {page_title: "info"}) %>
+
+<body>
+    <nav>
+      <h1>Comment prendre le test ?</h1>
+    </nav>
+    
+    <main class="center" style="padding-top: var(--big-size);padding-bottom: var(--big-size);">
+        <ul class="three-quarter-width">
+            <li>En consultant la carte qui te sera fournie, associe la lettre sur la carte au pays correspondant dans le tableau prévu à cet effet.</li>
+            <li>Sur les 24 pays tu devras en <strong>identifier 15</strong></li>
+            <li>Sur les 14 capitales tu devras en <strong>identifier 10</strong></li>
+        </ul>
+    </main>
+  
+    <footer class="center">
+        <form id="validationForm" class="center no-mask" method="get" action="/app/countries" style="width: 70%;">
+            <div id="hiddenParamsContainer"></div>
+            <label class="checkbox self-left">
+                <input type="checkbox" name="validation" required>
+                J'ai compris les informations
+             </label>
+            <input class="full-width" type="submit" value="Prendre le test">
+        </form>
+    </footer>
+  </body>
+  
+  </html>
+
+  <script>
+     document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('validationForm');
+      const hiddenParamsContainer = document.getElementById('hiddenParamsContainer');
+
+      if (form && hiddenParamsContainer) {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        urlParams.forEach((value, key) => {
+
+          const hiddenInput = document.createElement('input');
+          hiddenInput.type = 'hidden';
+          hiddenInput.name = key;
+          hiddenInput.value = value;
+          hiddenParamsContainer.appendChild(hiddenInput);
+        });
+
+      } else {
+         console.error("Form or hidden params container not found.");
+      }
+    });
+  </script>
